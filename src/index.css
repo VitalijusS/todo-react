@@ -1,0 +1,176 @@
+body,
+body * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+}
+
+body {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form > input {
+    font-size: 2rem;
+    padding: 0.3em 0.5em;
+    width: 100%;
+    min-height: 3rem;
+}
+
+form > button {
+    font-size: 2rem;
+    min-height: 3rem;
+    padding: 0.3rem 0.5rem;
+    line-height: 1rem;
+}
+
+.list-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.list-actions .title {
+    font-weight: bold;
+}
+
+.list-actions button {
+    padding: 0.2rem 0.5rem;
+}
+.list-actions button.active {
+    background-color: blue;
+    color: #fff;
+}
+
+.list {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.list > .item {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-left: 5px solid #000;
+    position: relative;
+}
+.list > .item[data-state='done'] {
+    background-color: #ccc;
+}
+
+.list .text {
+    font-size: 1.5rem;
+}
+.list .done {
+    display: none;
+}
+.list .item[data-state='done'] .done {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.3em 0.6em;
+    background-color: green;
+    color: white;
+    display: block;
+}
+
+.list .action {
+    display: flex;
+    gap: 1rem;
+}
+
+.list .action button {
+    padding: 0.4rem 0.7rem;
+}
+
+.list .diviter {
+    font-size: 2rem;
+}
+
+.list.empty {
+    border: 0.2rem solid #ccc;
+    padding: 2rem;
+    text-align: center;
+    font-style: italic;
+    font-size: 2rem;
+    color: #ccc;
+}
+
+.hidden {
+    display: none;
+}
+
+.toast {
+    position: fixed;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0.1rem 0.2rem;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 24rem;
+    display: none;
+}
+
+.toast.active {
+    display: flex;
+}
+
+.toast .icon {
+    padding: 1rem;
+}
+
+.toast .texts {
+    padding: 1rem;
+}
+
+.toast .texts .title {
+    font-weight: bold;
+}
+
+.toast .close {
+    padding: 1rem;
+}
+
+.toast .icon svg {
+    display: none;
+}
+
+.toast[data-state='success'] > .icon svg:nth-child(1),
+.toast[data-state='info'] .icon svg:nth-child(2),
+.toast[data-state='error'] .icon svg:nth-child(3) {
+    display: block;
+}
+
+.toast[data-state=''] > .icon {
+    display: none;
+}
+
+.toast[data-state='success'] > .texts .title {
+    color: green;
+}
+
+.toast[data-state='info'] > .texts .title {
+    color: blue;
+}
+
+.toast[data-state='error'] > .texts .title {
+    color: red;
+}
