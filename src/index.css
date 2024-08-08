@@ -30,11 +30,19 @@ form > input {
     min-height: 3rem;
 }
 
-form > button {
+form button {
     font-size: 2rem;
     min-height: 3rem;
     padding: 0.3rem 0.5rem;
     line-height: 1rem;
+}
+.btnList {
+    display: flex;
+    width: 80%;
+    font-size: 1rem;
+}
+.btnList > button {
+    font-size: 1rem;
 }
 
 .list-actions {
