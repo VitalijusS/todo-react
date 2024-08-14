@@ -1,61 +1,63 @@
 import { useState } from "react";
 
-export function Task(params){
-    const {text} = params.data
+export function Task(params) {
+    const { updateTaskColor, updateTaskState, updateTaskText, deleteTask, data } = params
+    const { id, text, color, state } = data;
     const style = {
-        borderLeftColor: "#ff0000",
+        borderLeftColor: color ?? '#ff0000',
     }
 
-    const [taskText, setTaskText] = useState(text);
     const [inputText, setInputText] = useState(text);
     const [editForm, setEditForm] = useState(false);
-    const [taskDone, setTaskDone] = useState(false);
-    const [taskVisibility, setTaskVisibility] = useState(true);
-    function editFormVisible(){
+    const [inputColor, setInputColor] = useState(color);
+    function editFormVisible() {
         setEditForm(true)
     }
-    function editFormHidden(){
+    function editFormHidden() {
         setEditForm(false)
     }
 
-    function handleUpdate(e){
+    function handleUpdate(e) {
         e.preventDefault();
         const text = inputText.trim();
-        if(text.length >0){
-            setTaskText(text);
-            setInputText(text);
-            setEditForm(prev => false);
+        if (text.length > 0) {
+            updateTaskText(id, text);
+            updateTaskColor(id, inputColor);
+            setEditForm(false);
         }
     }
 
-    if(!taskVisibility){
-        return <></>;
+    function handleReset() {
+        setInputColor(color);
+        setInputText(text);
     }
-    return(
-        <article className="item" data-state={taskDone?'done':''} style={style}>
+
+    return (
+        <article className="item" data-state={state === 'done' ? 'done' : ''} style={style}>
             <div className="date">2024-07-07 14:12:32</div>
-            <div className="text">{taskText}</div>
+            <div className="text">{text}</div>
             <div className="done">Done</div>
-            <form onSubmit={handleUpdate} className={editForm? '':'hidden'}>
-                <input onChange={e=>setInputText(e.target.value)} type="text" value={inputText} />
+            <form onSubmit={handleUpdate} className={editForm ? '' : 'hidden'}>
+                <input onChange={e => setInputText(e.target.value)} type="text" value={inputText} />
+                <input onChange={e => setInputColor(e.target.value)} type="color" value={inputColor} />
                 <div className="btnList">
-                    <button className="update" type="submit">Update</button>
-                    <button className="clear" type="reset" onClick={()=>setInputText('')} >Clear</button>
-                    <button className="clear" type="reset" onClick={()=>setInputText(taskText)} >Reset</button>
+                    <button className="update" type="submit" onSubmit={handleUpdate}>Update</button>
+                    <button className="clear" type="reset" onClick={() => setInputText('')} >Clear</button>
+                    <button className="clear" type="reset" onClick={() => handleReset()} >Reset</button>
                     <button className="cancel" type="button" onClick={editFormHidden} >Cancel</button>
                 </div>
             </form>
             <div className="action">
-                {!taskDone &&
+                {state !== 'done' &&
                     <>
-                        <button className="" onClick={()=>setTaskDone(prev => true)} >Done</button>
+                        <button className="" onClick={() => updateTaskState(id)} >Done</button>
                         <div className="diviter">|</div>
                         <button className="edit" onClick={editFormVisible}>Edit</button>
                     </>
                 }
-                <button className="delete" onClick={()=>setTaskVisibility(prev =>false)}>Delete</button>
+                <button className="delete" onClick={() => deleteTask(id)} >Delete</button>
             </div>
         </article>
-       
+
     );
 }

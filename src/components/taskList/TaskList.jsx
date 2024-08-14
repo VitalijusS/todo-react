@@ -1,17 +1,23 @@
 import { Task } from "./Task";
 
-export function TaskList(params){
-    
-    if(params.data.length === 0){
+export function TaskList(params) {
+    const { updateTaskColor, updateTaskState, updateTaskText, deleteTask, data } = params;
+
+    if (data === 0) {
         return (
-        <div className="list empty">
-          Empty
-        </div>
+            <div className="list empty">
+                Empty
+            </div>
         )
-    }else{
+    } else {
         return (
             <div className="list">
-                {params.data.map((item,index)=><Task data={item} key={index}/>)}
+                {data.map((item) => <Task data={item}
+                    updateTaskColor={updateTaskColor}
+                    updateTaskState={updateTaskState}
+                    updateTaskText={updateTaskText}
+                    deleteTask={deleteTask}
+                    key={item.id} />)}
             </div>
         )
     }
